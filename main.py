@@ -3,7 +3,7 @@ import argparse
 import os
 import logging
 
-import monitor
+from monitor import Monitor
 
 
 class StreamHandler(logging.StreamHandler):
@@ -37,6 +37,8 @@ def main():
         parser = argparse.ArgumentParser()
         parser.add_argument("-c", "--compose-file", dest="path",
             default=".", help="Path to the docker-compose.yml")
+        parser.add_argument("-t", "--timeout", dest="timeout",
+            default=10, help="Check&update timeout")
         parser.add_argument("-o", "--options", dest="options",
             nargs='+', help="Options for project")
         parser.add_argument("-l", "--log", dest="log",
@@ -58,7 +60,7 @@ def main():
             monitor = Monitor(args.path,
                 dict(zip(args.options[0::2], args.options[1::2])))
 
-        monitor.run(10)
+        monitor.run(args.timeout)
 
     except KeyboardInterrupt:
         print('\nThe process was interrupted by the user')
