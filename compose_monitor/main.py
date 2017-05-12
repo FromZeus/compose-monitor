@@ -36,7 +36,7 @@ def main():
         log.info("Monitor created successfully")
 
         log.info("Starting of monitor...")
-        monitor.run(args.timeout)
+        monitor.run(int(args.timeout))
 
     except KeyboardInterrupt:
         print('\nThe process was interrupted by the user')
