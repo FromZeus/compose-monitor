@@ -8,7 +8,7 @@ class Monitor(object):
         self.options = options
         self.project = command.project_from_options(self.path, self.options)
 
-    def run(timeout):
+    def run(self, timeout):
     	while True:
     		for service in self.project.services:
     			service.pull()
