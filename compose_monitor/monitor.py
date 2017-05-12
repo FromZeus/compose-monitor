@@ -53,7 +53,7 @@ class Monitor(object):
                 with Capturing() as output:
                     for service in self.project.services:
                         service.pull()
-                self.project.up()
+                    self.project.up()
             except Exception:
                 log.error("Service checking failed\n{}".
                     format(traceback.format_exc()))
