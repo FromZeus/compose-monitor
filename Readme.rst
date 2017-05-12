@@ -25,7 +25,7 @@ or
 How to use
 ~~~~~~~~~~
 
-Run it with the directory with ``docker-compose.yml`` file path ``compose-monitor -c .``
+Run it with the directory with ``docker-compose.yml`` file path: ``compose-monitor -c .``
 
 Also checkout list of `arguments`_
 
