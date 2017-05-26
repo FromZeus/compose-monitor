@@ -14,12 +14,18 @@ import sys
 class Capturing(list):
     def __enter__(self):
         self._stdout = sys.stdout
-        sys.stdout = self._stringio = StringIO()
+        self._stderr = sys.stderr
+        sys.stdout = self._out = StringIO()
+        sys.stderr = self._err = StringIO()
         return self
+
     def __exit__(self, *args):
-        self.extend(self._stringio.getvalue().splitlines())
-        del self._stringio
+        self.extend(self._out.getvalue().splitlines())
+        self.extend(self._err.getvalue().splitlines())
+        del self._out
+        del self._err
         sys.stdout = self._stdout
+        sys.stderr = self._stderr
 
 
 class Monitor(object):
