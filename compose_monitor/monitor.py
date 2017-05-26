@@ -15,15 +15,12 @@ class Capturing(list):
     def __enter__(self):
         self._stdout = sys.stdout
         self._stderr = sys.stderr
-        sys.stdout = self._out = StringIO()
-        sys.stderr = self._err = StringIO()
+        sys.stdout = sys.stderr = self._out = StringIO()
         return self
 
     def __exit__(self, *args):
         self.extend(self._out.getvalue().splitlines())
-        self.extend(self._err.getvalue().splitlines())
         del self._out
-        del self._err
         sys.stdout = self._stdout
         sys.stderr = self._stderr
 
