@@ -49,7 +49,7 @@ class Monitor(object):
                 format(traceback.format_exc()))
             raise SystemExit
 
-    def run(self, timeout):
+    def run(self, timeout, scheduler):
         log.info("Monitor started successfully")
         while True:
             try:
@@ -60,6 +60,8 @@ class Monitor(object):
             except Exception:
                 log.error("Service checking failed\n{}".
                     format(traceback.format_exc()))
+            if scheduler:
+                break
 
             log.info("Checked successfully\n{}".format(output))
             time.sleep(timeout)

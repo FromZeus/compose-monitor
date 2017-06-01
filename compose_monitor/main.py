@@ -10,6 +10,8 @@ parser.add_argument("-c", "--compose-file", dest="path",
     default=".", help="Path to the docker-compose.yml")
 parser.add_argument("-t", "--timeout", dest="timeout",
     default=10, help="Check&update timeout")
+parser.add_argument("-e", "--external-scheduler", dest="scheduler",
+    action="store_true", help="Don't use built-in timer")
 parser.add_argument("-o", "--options", dest="options",
     nargs='+', help="Options for project")
 parser.add_argument("-l", "--log", dest="log",
@@ -36,7 +38,7 @@ def main():
         log.info("Monitor created successfully")
 
         log.info("Starting of monitor...")
-        monitor.run(int(args.timeout))
+        monitor.run(int(args.timeout), args.scheduler)
 
     except KeyboardInterrupt:
         print('\nThe process was interrupted by the user')
