@@ -13,7 +13,7 @@ parser.add_argument("-t", "--timeout", dest="timeout",
 parser.add_argument("-e", "--external-scheduler", dest="scheduler",
     action="store_true", help="Don't use built-in timer")
 parser.add_argument("-o", "--options", dest="options",
-    nargs='+', help="Options for project")
+    help="Options for project")
 parser.add_argument("-l", "--log", dest="log",
     help="Redirect logging to file")
 args = parser.parse_args()
@@ -34,7 +34,7 @@ def main():
             monitor = Monitor(args.path, dict(), args.log)
         else:
             monitor = Monitor(args.path,
-                dict(zip(args.options[0::2], args.options[1::2])), args.log)
+                dict(zip(args.options.split()[0::2], args.options.split()[1::2])), args.log)
         log.info("Monitor created successfully")
 
         log.info("Starting of monitor...")
