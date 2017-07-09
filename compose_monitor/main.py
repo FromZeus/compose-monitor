@@ -14,6 +14,13 @@ parser.add_argument("-e", "--external-scheduler", dest="scheduler",
     action="store_true", help="Don't use built-in timer")
 parser.add_argument("-o", "--options", dest="options",
     help="Options for project")
+parser.add_argument("--no-recreate", dest="norecreate",
+    action="store_true", help="Don't recreate, only pull")
+parser.add_argument("--no-deps", dest="nodeps",
+    action="store_true", help="Don't restart services dependencies")
+parser.add_argument("--affect-only-running", dest="running",
+    action="store_true",
+    help="Restart only running services and don't touch stopped")
 parser.add_argument("-l", "--log", dest="log",
     help="Redirect logging to file")
 args = parser.parse_args()
@@ -31,10 +38,13 @@ else:
 def main():
     try:
         if args.options is None:
-            monitor = Monitor(args.path, dict(), args.log)
+            monitor = Monitor(args.path, dict(),
+                args.norecreate, args.nodeps, args.running, args.log)
         else:
             monitor = Monitor(args.path,
-                dict(zip(args.options.split()[0::2], args.options.split()[1::2])), args.log)
+                dict(zip(args.options.split()[0::2],
+                         args.options.split()[1::2])),
+                args.norecreate, args.nodeps, args.running, args.log)
         log.info("Monitor created successfully")
 
         log.info("Starting of monitor...")
