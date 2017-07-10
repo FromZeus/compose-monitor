@@ -70,7 +70,7 @@ class Monitor(object):
             services = None
 
         try:
-            self.project.up(services, start_deps=not self.nodeps)
+            self.project.up(services, start_deps=self.nodeps)
             log.info("Project updated successfully")
         except Exception:
             log.error("Can't update project")
