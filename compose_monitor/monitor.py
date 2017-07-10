@@ -80,13 +80,10 @@ class Monitor(object):
         fully_running = []
 
         for service in self.project.get_services():
-            # There is a presence of unhealthy behavior,
-            # `service.containers(stopped=True)`
-            # also may give running containers, so
-            if all(container.is_running for container in service.containers()):
+            if all(container.is_running for container in service.containers(stopped=True)):
                 fully_running.append(service)
             else:
-                log.warning("Some containers for service {} are down". \
+                log.warning("Some containers for service \"{}\" are down". \
                     format(service.name))
 
         return fully_running
