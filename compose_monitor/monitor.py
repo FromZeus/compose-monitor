@@ -65,16 +65,25 @@ class Monitor(object):
             return
 
         if self.running:
-            services = [el.name for el in self._fully_running_services()]
+            services = self._fully_running_services()
         else:
-            services = None
+            services = self.project.services
 
-        try:
-            self.project.up(services, start_deps=self.nodeps)
-            log.info("Project updated successfully")
-        except Exception:
-            log.error("Can't update project")
-            raise
+        if self.nodeps:
+            for service in services:
+                try:
+                    service.execute_convergence_plan(service.convergence_plan())
+                    log.info("Service \"{}\" updated successfully".format(service.name))
+                except Exception:
+                    log.error("Can't update service \"{}\"".format(service.name))
+                    raise
+        else:
+            try:
+                self.project.up([el.name for el in services], detached=True)
+                log.info("Project updated successfully")
+            except Exception:
+                log.error("Can't update project")
+                raise
 
     def _fully_running_services(self):
         fully_running = []
@@ -89,6 +98,7 @@ class Monitor(object):
         return fully_running
 
     def run(self, timeout, scheduler):
+        self.project.up(detached=True)
         log.info("Monitor started successfully")
         while True:
             try:

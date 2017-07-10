@@ -17,7 +17,7 @@ parser.add_argument("-o", "--options", dest="options",
 parser.add_argument("--no-recreate", dest="norecreate",
     action="store_true", help="Don't recreate, only pull")
 parser.add_argument("--no-deps", dest="nodeps",
-    action="store_false", help="Don't restart services dependencies")
+    action="store_true", help="Don't restart services dependencies")
 parser.add_argument("--affect-only-running", dest="running",
     action="store_true",
     help="Restart only running services and don't touch stopped")
