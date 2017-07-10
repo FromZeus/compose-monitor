@@ -35,6 +35,9 @@ arguments
 * ``-c, --config`` - Run with config
 * ``-o, --options`` - Additional options for the project
 * ``-l, --log`` - Redirect logging to file
+* ``--no-recreate`` - Don't recreate containers, only pull new images
+* ``--no-deps`` - Don't restart service dependencies
+* ``--affect-only-running`` - Make update operations only with fully running services
 
 .. |language| image:: https://img.shields.io/badge/language-python-blue.svg
 .. |license| image:: https://img.shields.io/badge/license-Apache%202-blue.svg

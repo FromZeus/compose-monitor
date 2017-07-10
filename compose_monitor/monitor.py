@@ -84,6 +84,9 @@ class Monitor(object):
             # also may give running containers, so
             if all(container.is_running for container in service.containers()):
                 fully_running.append(service)
+            else:
+                log.warning("Some containers for service {} are down". \
+                    format(service.name))
         return fully_running
 
     def run(self, timeout, scheduler):
