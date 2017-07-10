@@ -37,7 +37,6 @@ else:
 
 def main():
     try:
-        log.info(args.nodeps)
         if args.options is None:
             monitor = Monitor(args.path, dict(),
                 args.norecreate, args.nodeps, args.running, args.log)
