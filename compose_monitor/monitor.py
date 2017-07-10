@@ -77,8 +77,9 @@ class Monitor(object):
             raise
 
     def _fully_running_services(self):
+        fully_running = []
+
         for service in self.project.get_services():
-            fully_running = []
             # There is a presence of unhealthy behavior,
             # `service.containers(stopped=True)`
             # also may give running containers, so
@@ -87,6 +88,7 @@ class Monitor(object):
             else:
                 log.warning("Some containers for service {} are down". \
                     format(service.name))
+
         return fully_running
 
     def run(self, timeout, scheduler):
